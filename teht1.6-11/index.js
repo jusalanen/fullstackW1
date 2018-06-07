@@ -21,13 +21,13 @@ const Statistic = ({teksti, num}) => {
     if(teksti === "positiivisia") {
         return (
             <div>
-                <p>{teksti}: {num} %</p>
+                <td width="80">{teksti}:</td><td width="60">{num} %</td>
             </div>
         )
     }
     return (
     <div>
-        <p>{teksti}: {num}</p>
+        <tr><td width="80">{teksti}: </td><td width="30">{num}</td></tr>
     </div>
     )
 }
@@ -39,13 +39,13 @@ const Statistics = (props) => {
         )
     }  
     return (
-    <div>
-        <Statistic teksti="hyvä" num={props.hy} />
-        <Statistic teksti="neutraali" num={props.ne} />
-        <Statistic teksti="huono" num={props.hu} />
-        <Statistic teksti= "keskiarvo" num={props.ka} />
-        <Statistic teksti="positiivisia" num={props.ph} />
-    </div>
+    <div><table>
+        <tr><Statistic teksti="hyvä" num={props.hy} /></tr>
+        <tr><Statistic teksti="neutraali" num={props.ne} /></tr>
+        <tr><Statistic teksti="huono" num={props.hu} /></tr>
+        <tr><Statistic teksti= "keskiarvo" num={props.ka} /></tr>
+        <tr><Statistic teksti="positiivisia" num={props.ph} /></tr>
+    </table></div>
     )
 }
     
@@ -58,7 +58,6 @@ class App extends React.Component {
             countNeut: 0,
             countHuo: 0          
         }
-
     }
 
     klik = (txt) => {
