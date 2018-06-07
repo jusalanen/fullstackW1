@@ -11,12 +11,12 @@ const Otsikko = (props) => {
 
 class App extends React.Component {
     constructor() {
-      super()
-      this.state = {
-        countHyv: 0,
-        countNeut: 0,
-        countHuo: 0
-      }
+        super()
+        this.state = {
+            countHyv: 0,
+            countNeut: 0,
+            countHuo: 0          
+        }
 
     }
     
@@ -24,7 +24,7 @@ class App extends React.Component {
         this.setState({
             countHyv: this.state.countHyv + 1
         })
-      }
+    }
     
     klikNeut = () => {
         this.setState({
@@ -37,26 +37,31 @@ class App extends React.Component {
             countHuo: this.state.countHuo + 1
         })
     }
-  
+
     render() {
-      return (
-        <div>
-          <div><Otsikko ots="Anna palautetta" /></div>  
-          <div>{this.state.counter}</div>
-          <div>
-            <button onClick={this.klikHyv}>hyvä</button>
-            <button onClick={this.klikNeut}>neutraali</button>
-            <button onClick={this.klikHuo}>huono</button>
-          </div>
-          <div><Otsikko ots="statistiikka" /></div>
+        const {countHyv, countNeut, countHuo} = this.state
+        const tot = countHyv + countNeut + countHuo
+        const ka = () => (countHyv - countHuo) / tot
+        const ph = () => countHyv / tot * 100
+        return (
             <div>
-              <p>hyvä: {this.state.countHyv}</p>
-              <p>neutraali:  {this.state.countNeut}</p>
-              <p>huono: {this.state.countHuo}</p>
+                <div><Otsikko ots="Anna palautetta" /></div>  
+                <div>
+                    <button onClick={this.klikHyv}>hyvä</button>
+                    <button onClick={this.klikNeut}>neutraali</button>
+                    <button onClick={this.klikHuo}>huono</button>
+                </div>                
+                <div><Otsikko ots="statistiikka" /></div>
+                <div>
+                    <p>hyvä: {this.state.countHyv}</p>
+                    <p>neutraali:  {this.state.countNeut}</p>
+                    <p>huono: {this.state.countHuo}</p>
+                    <p>keskiarvo: {ka().toFixed(2)}</p>
+                    <p>positiivisia: {ph().toFixed(1)} %</p>
+                </div>
             </div>
-        </div>
-      )
+        )
     }
 }
-  
+
 ReactDOM.render(<App />, document.getElementById('root'));
