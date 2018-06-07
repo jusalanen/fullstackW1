@@ -60,25 +60,13 @@ class App extends React.Component {
         }
 
     }
-    
-    klikHyv = () => {
-        this.setState({
-            countHyv: this.state.countHyv + 1
-        })
-    }
-    
-    klikNeut = () => {
-        this.setState({
-            countNeut: this.state.countNeut + 1
-        })
-    }
 
-    klikHuo = () => {
-        this.setState({
-            countHuo: this.state.countHuo + 1
-        })
+    klik = (txt) => {
+        return () => {
+            this.setState({ [txt]: this.state[txt] + 1 });
+        }          
     }
-
+    
     render() {
         const {countHyv, countNeut, countHuo} = this.state
         const tot = countHyv + countNeut + countHuo
@@ -88,9 +76,9 @@ class App extends React.Component {
             <div>
                 <div><Otsikko ots="Anna palautetta" /></div>  
                 <div>
-                    <Button handleClick={this.klikHyv} text="hyvä" />
-                    <Button handleClick={this.klikNeut} text="neutraali" />
-                    <Button handleClick={this.klikHuo} text="huono" />
+                    <Button handleClick={this.klik("countHyv")} text="hyvä" />
+                    <Button handleClick={this.klik("countNeut")} text="neutraali" />
+                    <Button handleClick={this.klik("countHuo")} text="huono" />
                 </div>                
                 <div><Otsikko ots="statistiikka" /></div>
                 <div>
@@ -101,6 +89,5 @@ class App extends React.Component {
         )
     }
 }
-
 
 ReactDOM.render(<App />, document.getElementById('root'));
