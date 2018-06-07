@@ -9,6 +9,42 @@ const Otsikko = (props) => {
     )
 }
 
+const Button = ({handleClick, text}) => { 
+    return (
+    <button onClick={handleClick}>
+      {text}
+    </button>
+    )
+}
+
+const Statistic = ({teksti, num}) => {
+    if(teksti === "positiivisia") {
+        return (
+            <div>
+                <p>{teksti}: {num} %</p>
+            </div>
+        )
+    }
+    return (
+    <div>
+        <p>{teksti}: {num}</p>
+    </div>
+    )
+}
+
+const Statistics = (props) => {
+    return (
+    <div>
+        <Statistic teksti="hyvä" num={props.hy} />
+        <Statistic teksti="neutraali" num={props.ne} />
+        <Statistic teksti="huono" num={props.hu} />
+        <Statistic teksti= "keskiarvo" num={props.ka} />
+        <Statistic teksti="positiivisia" num={props.ph} />
+    </div>
+    )
+}
+    
+
 class App extends React.Component {
     constructor() {
         super()
@@ -47,17 +83,14 @@ class App extends React.Component {
             <div>
                 <div><Otsikko ots="Anna palautetta" /></div>  
                 <div>
-                    <button onClick={this.klikHyv}>hyvä</button>
-                    <button onClick={this.klikNeut}>neutraali</button>
-                    <button onClick={this.klikHuo}>huono</button>
+                    <Button handleClick={this.klikHyv} text="hyvä" />
+                    <Button handleClick={this.klikNeut} text="neutraali" />
+                    <Button handleClick={this.klikHuo} text="huono" />
                 </div>                
                 <div><Otsikko ots="statistiikka" /></div>
                 <div>
-                    <p>hyvä: {this.state.countHyv}</p>
-                    <p>neutraali:  {this.state.countNeut}</p>
-                    <p>huono: {this.state.countHuo}</p>
-                    <p>keskiarvo: {ka().toFixed(2)}</p>
-                    <p>positiivisia: {ph().toFixed(1)} %</p>
+                    <Statistics hy = {countHyv} ne = {countNeut} hu = {countHuo} 
+                        ka = {ka().toFixed(2)} ph = {ph().toFixed(1)} />
                 </div>
             </div>
         )
