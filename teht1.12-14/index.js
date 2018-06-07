@@ -3,36 +3,52 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
     constructor(props) {
-      super(props)
-      this.state = {
-        selected: 0,
-        votes: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
-      }
+        super(props)
+        this.state = {
+            selected: 0,
+            votes: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+        }
     }
 
     lottery = () => {
-      const num = Math.floor(Math.random() * 6)
-      this.setState({ selected: num })      
+        const num = Math.floor(Math.random() * 6)
+        this.setState({ selected: num })      
     }
 
     voting = () => {
-      const num = this.state.selected
-      const copy = this.state.votes
-      copy[num] = copy[num] + 1
-      this.setState({ votes: copy })
+        const num = this.state.selected
+        const copy = this.state.votes
+        copy[num] = copy[num] + 1
+        this.setState({ votes: copy })
     }
-  
+
+    
     render() {
-      return (
-        <div>
+        let mostVotes = () => {
+            let highest = 0
+            for (let x = 0; x < 6; x++) {
+                if (this.state.votes[x] > this.state.votes[highest]) {
+                    highest = x;
+                }
+            }
+            return highest
+        }
+      
+        return (
             <div>
-                {this.props.anecdotes[this.state.selected]}
-                <p>Votes: {this.state.votes[this.state.selected]}</p>
+                <div>
+                    {this.props.anecdotes[this.state.selected]}
+                    <p>Votes: {this.state.votes[this.state.selected]}</p>
+                </div>
+                <button onClick={this.lottery}>next anecdote</button>
+                <button onClick={this.voting}>vote</button>
+                <div>
+                    <h3>anecdote with most votes:</h3>
+                    {this.props.anecdotes[mostVotes()]}
+                    <p> has {this.state.votes[mostVotes()]} votes</p>
+                </div>
             </div>
-            <button onClick={this.lottery}>next anecdote</button>
-            <button onClick={this.voting}>vote</button>
-        </div>
-      )
+        )
     }
   }
   
