@@ -5,13 +5,21 @@ class App extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        selected: 0
+        selected: 0,
+        votes: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
       }
     }
 
     lottery = () => {
-        const num = Math.floor(Math.random() * 6)
-        this.setState({ selected: num })      
+      const num = Math.floor(Math.random() * 6)
+      this.setState({ selected: num })      
+    }
+
+    voting = () => {
+      const num = this.state.selected
+      const copy = this.state.votes
+      copy[num] = copy[num] + 1
+      this.setState({ votes: copy })
     }
   
     render() {
@@ -19,8 +27,10 @@ class App extends React.Component {
         <div>
             <div>
                 {this.props.anecdotes[this.state.selected]}
+                <p>Votes: {this.state.votes[this.state.selected]}</p>
             </div>
             <button onClick={this.lottery}>next anecdote</button>
+            <button onClick={this.voting}>vote</button>
         </div>
       )
     }
@@ -36,6 +46,5 @@ class App extends React.Component {
   ]
   
   ReactDOM.render(
-    <App anecdotes={anecdotes} />,
-    document.getElementById('root')
+    <App anecdotes={anecdotes} />, document.getElementById('root')
   )
