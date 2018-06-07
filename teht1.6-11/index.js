@@ -33,6 +33,11 @@ const Statistic = ({teksti, num}) => {
 }
 
 const Statistics = (props) => {
+    if(props.hy === 0 & props.ne === 0 & props.hu === 0) {
+        return (
+            <div><p>ei yhtään palautetta annettu</p></div>
+        )
+    }  
     return (
     <div>
         <Statistic teksti="hyvä" num={props.hy} />
@@ -96,5 +101,6 @@ class App extends React.Component {
         )
     }
 }
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
